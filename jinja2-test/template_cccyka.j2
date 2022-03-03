@@ -1,0 +1,8 @@
+Animals:
+{% for animal in params['animals'].values() %}
+  name: {{ animal['name'] }}{% if animal['name'].startswith('B') %} - Beautiful {% endif %}
+  age: {{ animal['age'] }}{% if animal['age'] < 3 %} - Young{% elif animal['age'] >= 3 and animal['age'] < 7 %} - Middle{% elif animal['age'] > 7 and animal['age'] <= 10 %} - Old{% endif %}
+  weight: {{ animal['weight'] }}
+  eyes: {{ animal['eyes'] }}
+  colour: {{ animal['colour'] }}
+{% endfor %}
