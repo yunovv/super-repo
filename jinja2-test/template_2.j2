@@ -1,0 +1,4 @@
+Animals:
+{% for animal in params['animals'] %}
+   {{ params['animals'][animal]['name'] }}{% if params['animals'][animal]['age'] > 4 %} - Old{% endif %}
+{% endfor %}
