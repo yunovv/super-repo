@@ -1,0 +1,19 @@
+animals:
+  cat:
+    eyes: 2
+    weight: 1
+    age: 3
+    name: Tom
+    colour: white
+  dog:
+    eyes: 2
+    weight: 3
+    age: 2
+    name: Bark
+    colour: brown
+  elephant:
+    eyes: 2
+    weight: 100
+    name: Andy
+    age: 10
+    colour: grey
