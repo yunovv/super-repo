@@ -1,0 +1,19 @@
+---
+
+- name: Nginx example Playbook
+  hosts: all
+  tasks:
+    - name: Display message
+      debug:
+        msg: "Starting Playbook"
+
+    - name: This command will change the working directory to /tmp and will only run when /tmp/yunov_testfile doesn't exist.
+      shell: echo 'Example text string' > yunov_testfile
+      args:
+        chdir: /tmp
+        creates: yunov_testfile
+    
+    - name: Conditional role Nginx
+      include_role:
+        name: nginx
+      when: "'webservers' in group_names"
