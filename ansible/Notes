@@ -1,0 +1,25 @@
+#Создать структуру Role
+
+ansible-galaxy init nginx
+
+roles-example/
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+#Примеры модулей
+https://docs.ansible.com/ansible/2.4/shell_module.html
+
