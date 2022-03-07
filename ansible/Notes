@@ -1,3 +1,25 @@
+
+#Подготовить серверы, которые будут настраиваться
+#Создать пользователя
+useradd -m -d /home/admin admin
+
+#Положить пользователю наш публичный ssh ключ в ~/.ssh/authorized_keys под которым будет подключаться ansible 
+#Альтернативно, команда сама положит ваш публичный ключ в authorized_keys
+ssh-copy-id username@remote_host
+
+#Убедиться, что python установлен
+/usr/bin/python
+#Если нет
+zypper install python
+
+
+
+
+#Запустить плейбук 
+ansible-playbook -i hosts example-playbook.yml
+
+
+
 #Создать структуру Role
 
 ansible-galaxy init nginx

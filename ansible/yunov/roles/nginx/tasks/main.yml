@@ -1,2 +1,12 @@
 ---
 # tasks file for nginx
+
+- name: Display message Nginx
+  debug:
+    msg: "Starting Nginx Role"
+
+- name: This command will change the working directory to /tmp and will only run when /tmp/nginx_testfile doesn't exist.
+  shell: echo 'Example text string' > nginx_testfile
+  args:
+    chdir: /tmp
+    creates: nginx_testfile

@@ -1,2 +1,3 @@
 [webservers]
-10.10.0.213
+10.10.0.213 ansible_user=admin
+
