@@ -1,0 +1,18 @@
+server {
+        listen {{ nginx_service_listen_port }};
+        server_name {{ nginx_hostname }};
+
+        access_log /var/log/nginx/{{ nginx_service_name }}_access.log;
+        error_log  /var/log/nginx/{{ nginx_service_name }}_error.log;
+
+        
+        
+
+        location / {
+            alias /etc/nginx/static_out/;
+            #autoindex on;
+            index page.html;
+        }
+
+
+    }
