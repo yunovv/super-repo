@@ -5,13 +5,13 @@
   debug:
     msg: "Starting Nginx Role"
 
-- name: This command will change the working directory to /tmp and will only run when /tmp/nginx_testfile doesn't exist.
-  shell: echo '"{{ nginx_test_value }}"' > nginx_testfile
+- name: This command will change the working directory to /tmp/ansible_test and will only run when /tmp/ansible_test/nginx_testfile doesn't exist.
+  shell: echo '{{ nginx.test_value }}' > nginx_testfile
   args:
-    chdir: /tmp
-    creates: nginx_testfile
+    chdir: /tmp/ansible_test
+    #creates: nginx_testfile
 
 - name: Create index.html using Jinja2
   template:
     src: nginx.conf.j2
-    dest: /tmp/nginx.conf
+    dest: /tmp/ansible_test/nginx.conf

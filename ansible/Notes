@@ -12,7 +12,8 @@ ssh-copy-id username@remote_host
 #Если нет
 zypper install python
 
-
+#Добавить пользователя в sudo
+visudo
 
 
 #Запустить плейбук 
@@ -47,5 +48,6 @@ roles-example/
     └── main.yml
 
 #Примеры модулей
+https://docs.ansible.com/ansible/2.4/list_of_all_modules.html
 https://docs.ansible.com/ansible/2.4/shell_module.html
 
