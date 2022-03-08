@@ -6,7 +6,12 @@
     msg: "Starting Nginx Role"
 
 - name: This command will change the working directory to /tmp and will only run when /tmp/nginx_testfile doesn't exist.
-  shell: echo 'Example text string' > nginx_testfile
+  shell: echo '"{{ nginx_test_value }}"' > nginx_testfile
   args:
     chdir: /tmp
     creates: nginx_testfile
+
+- name: Create index.html using Jinja2
+  template:
+    src: nginx.conf.j2
+    dest: /tmp/nginx.conf

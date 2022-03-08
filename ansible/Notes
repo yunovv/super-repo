@@ -18,6 +18,10 @@ zypper install python
 #Запустить плейбук 
 ansible-playbook -i hosts example-playbook.yml
 
+ansible-playbook -i hosts example-playbook.yml --extra-vars "nginx_test_value='8.8.8.8'"
+
+ansible-playbook -i hosts example-playbook.yml --extra-vars "nginx_test_value='nginx_something' nginx_service_listen_port='8080' nginx_hostname='nginx.local' nginx_service_name='my_service'"
+
 
 
 #Создать структуру Role
