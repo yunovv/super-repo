@@ -1,0 +1,5 @@
+nginx:
+  test_value: nginx_something
+  service_listen_port: 8080
+  hostname: nginx.local
+  service_name: my_service

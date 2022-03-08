@@ -1,0 +1,2 @@
+nginx:
+  test_value: nginx_something_100

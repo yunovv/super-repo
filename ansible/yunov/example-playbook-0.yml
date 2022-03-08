@@ -1,0 +1,22 @@
+---
+
+- name: Nginx example Playbook
+  hosts: all
+  tasks:
+    - name: Display message
+      debug:
+        msg: "Starting Playbook"
+
+    - name: This command will change the working directory to /tmp/ansible_test and will only run when /tmp/ansible_test/yunov_testfile doesn't exist.
+      shell: echo 'Example text string' >> yunov_testfile
+      args:
+        chdir: /tmp/ansible_test
+        creates: yunov_testfile
+
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      uri:
+        url: http://localhost:8080
+
+    - name: Display message
+      debug:
+        msg: "Finishing Playbook"
