@@ -1,0 +1,56 @@
+#Запустить контейнер из образа
+docker run nginx:latest
+
+#Запустить и назначить имя
+docker run --name some-nginx nginx:latest
+
+#Запустить и перенаправить локальный порт в порт контейнера
+docker run --name some-nginx -p 8080:80 nginx:latest
+
+#Запустить в фоне (detached)
+docker run --name some-nginx -d -p 8080:80 nginx:latest
+
+#Подключиться к терминалу контейнера
+docker exec -it some-nginx /bin/bash
+
+#Работающие контейнеры
+docker ps
+
+#Убить контейнер
+docker kill fccdfe8e4cfd
+
+#Список image
+docker image ls
+
+#Список контейнеров
+docker container ls -a
+
+#Удалить контейнер
+docker container rm fccdfe8e4cfd
+
+#Удалить все контейнеры
+docker container ls -a | awk '{ print $1 }' | xargs docker container rm
+
+
+
+
+
+
+#Dockerfile
+
+#Build
+docker build .
+
+#Run container from builded image
+docker run 87eda445703d
+
+#Run detached with ports exposed
+docker run -d -p 8080:8080 -p 9080:9080 87eda445703d
+
+#Проверить открытые локальные порты
+netstat -tulnp | grep docker
+
+#Проверить работу сервиса в докере
+curl -v localhost:8080
+curl -v localhost:9080
+
