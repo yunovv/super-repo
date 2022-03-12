@@ -54,3 +54,14 @@ netstat -tulnp | grep docker
 curl -v localhost:8080
 curl -v localhost:9080
 
+
+#RUN vs ENTRYPOINT
+#CMD instruction allows you to set a default command, which will be executed only when you run container without specifying a command. If Docker container runs with a command, the default command will be ignored. If Dockerfile has more than one CMD instruction, all but last CMD instructions are ignored.
+#ENTRYPOINT instruction allows you to configure a container that will run as an executable. It looks similar to CMD, because it also allows you to specify a command with parameters. The difference is ENTRYPOINT command and parameters are not ignored when Docker container runs with command line parameters. (There is a way to ignore ENTTRYPOINT, but it is unlikely that you will do it.)
+#https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
+
+#Optimization
+#Only the RUN, COPY, and ADD instructions create layers. Other instructions create temporary intermediate images, and ultimately do not increase the size of the build. Where possible, only copy the artifacts you need into the final image. This allows you to include extra tools and/or to debug information in your intermediate build stages, without increasing the size of the final image.
+#https://docs.docker.com/storage/storagedriver/#images-and-layers
+#https://tier.engineering/Tips-for-optimising-docker-build
+#https://medium.com/the-agile-crafter/docker-image-optimization-from-1-16gb-to-22-4mb-53fdb4c53311
