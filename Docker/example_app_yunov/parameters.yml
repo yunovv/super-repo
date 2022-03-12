@@ -1,0 +1,33 @@
+animals:
+  cat:
+    eyes: 2
+    weight: 1
+    age: 3
+    name: Tomas
+    colour: white
+    sound: meow
+    type: Cat
+  dog:
+    eyes: 2
+    weight: 3
+    age: 2
+    name: Tod
+    colour: brown
+    sound: bark-bark
+    type: Dog
+  elephant:
+    eyes: 2
+    weight: 100
+    name: Bob
+    age: 10
+    colour: grey
+    sound: trumpet
+    type: Elephant
+  fly:
+    eyes: 200
+    weight: 0.1
+    name: Joshua
+    age: 0.1
+    colour: black
+    sound: buzz
+    type: Fly
