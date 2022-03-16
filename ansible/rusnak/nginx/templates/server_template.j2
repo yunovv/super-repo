@@ -1,0 +1,16 @@
+server {  
+		listen {{ item['port']}};
+		server_name {{ item['hostname']}};
+
+		access_log /var/log/nginx/{{ item['name']}}_access.log;
+		error_log  /var/log/nginx/{{ item['name']}}_error.log;
+
+		location / {
+		  {% if  item['proxy'] -%}
+		  proxy_pass {{ item['proxy_pass'] }};
+		{% else -%}
+		  alias {{ item['static_alias'] }};
+		  index {{ item['index'] }};
+		{% endif -%}
+		}
+	}
