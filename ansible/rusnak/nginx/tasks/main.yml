@@ -1,0 +1,63 @@
+---
+
+- name: Check installed or not Nginx.
+  command: rpm -q nginx
+  register: result
+
+- name: Install Nginx Web Server
+  yum:
+    name=nginx
+    state=latest
+  notify:
+    - nginx systemd
+  when: result.stdout.find('is not installed') != -1
+  become: yes
+
+- name: Create configs from template vi Jinja.
+  template:
+    src: server_template.j2
+    dest: /etc/nginx/conf.d/{{ item.name }}.conf
+    force: yes
+  loop: "{{ nginx.servers.values() }}"
+  become: yes
+  
+  
+- name: Copy Nginx files to /etc/nginx/
+  copy:
+    src: files/
+    dest: /etc/nginx/
+  become: yes
+
+
+- name: Check cfg Nginx.
+  shell: nginx -t
+  become: yes
+  register: result
+
+
+#- name: print all returned values
+#  debug:
+#    var: result
+
+
+- name: Start and Enable Nginx service.
+  service: 
+    name: nginx
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Reload Nginx service.
+  service: 
+    name: nginx
+    state: reloaded
+  become: yes
+  
+
+- name: Check that you can connect to a server:.
+  uri:
+    url: http://{{ item.hostname }}:{{ item.port }}
+    return_content: yes
+  loop: "{{ nginx.servers.values() }}"  
+  register: this
+  failed_when: "'Test page.' not in this.content"

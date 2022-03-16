@@ -1,0 +1,15 @@
+nginx:
+  servers:
+    server1:
+      hostname: localhost
+      name: server_80
+      port: 80
+      proxy: true
+      proxy_pass: http://localhost:8080
+    server2:
+      hostname: localhost
+      name: server_8080
+      port: 8080
+      proxy: false
+      static_alias: /etc/nginx/static_out/
+      index: page.html

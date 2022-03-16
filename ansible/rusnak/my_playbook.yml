@@ -1,0 +1,41 @@
+---
+
+- name: test
+  hosts: nginx
+  tasks:
+    - name: Get OS name
+      debug:
+        msg: "Start."
+    
+    - name: Get OS name
+      debug:
+        msg: "{{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }} "
+
+    
+    - name: Disable SELinux.
+      selinux : 
+        state: disabled
+      become: yes
+
+    - name: Stop and Disable Firewall service.
+      service: 
+        name: firewalld
+        state: stopped
+        enabled: no
+      become: yes
+
+
+    - name: Include nginx role.
+      include_role:
+        name: nginx
+
+ 
+      
+      
+      
+      
+      
+    
+
+      
+    
