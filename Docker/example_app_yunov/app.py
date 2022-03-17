@@ -16,7 +16,7 @@ def index():
 
 @app.route('/api', methods=['GET', 'POST'])
 def api_help():
-    return {'Usage':'/api/animals/<animal>'}
+    return {'Usage':'/api/animals /api/animals/<animal>'}
 
 
 @app.route('/api/health', methods=['GET', 'POST'])
@@ -24,8 +24,17 @@ def api_health():
     return {'status':'OK'}
 
 
+@app.route('/api/animals', methods=['GET', 'POST'])
+def api_animals():
+    animals = []
+    for animal in my_params['animals']:
+        animals.append(animal)
+    #animals = my_params['animals'].keys()
+    return {'animals':animals}
+
+
 @app.route('/api/animals/<string:animal>', methods=['GET', 'POST'])
-def api_animals(animal):
+def api_animals_animal(animal):
     if animal not in my_params['animals']:
         abort(404) 
     return {animal:my_params['animals'][animal]}
