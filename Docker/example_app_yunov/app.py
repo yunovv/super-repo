@@ -40,6 +40,13 @@ def api_animals_animal(animal):
     return {animal:my_params['animals'][animal]}
 
 
+@app.route('/api/animals/<string:animal>/<string:param>', methods=['GET', 'POST'])
+def api_animals_animal_param(animal,param):
+    if animal not in my_params['animals'] or param not in my_params['animals'][animal]:
+        abort(404)
+    return {param:my_params['animals'][animal][param]}
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return "404 - Not Found", 404
