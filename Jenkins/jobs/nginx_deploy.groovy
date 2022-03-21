@@ -7,26 +7,33 @@ def nginx_user = 'admin'
 def scripts_repo = 'git@github.com:yunovv/super-repo.git'
 
 pipeline {
-    agent { label "all" }
+    agent any
     parameters {
         booleanParam(name: 'show_debug_info', defaultValue: false)
     }
 
     stages {
         stage('Checkout Scripts Repo') {
-            when { expression { params.send_file } }
             steps {
                 script {
-
+                    
                     // работаем с git из cli 
-                    sshagent(credentials : [git_cred_id]) {
-                        sh "git ls-remote -h -- ${scripts_repo} HEAD"
+                    sh 'mkdir scripts_repo_dir_1'
+                    dir("scripts_repo_dir_1") {
+                        sh "git init"
+                        sshagent(credentials : [git_cred_id]) {
+                            sh "git fetch $scripts_repo master:master"
+                        }
+                        sh "ls"
                     }
+                    
 
                     // работаем с git при помощи плагина jenkins
-                    checkout([$class: 'GitSCM', branches: [[name: '*/master']],userRemoteConfigs: [[url: scripts_repo]], credentialsId: git_cred_id])
-
-                    sh 'ls -l'
+                    sh 'mkdir scripts_repo_dir_2'
+                    dir("scripts_repo_dir_2") {
+                        checkout([$class: 'GitSCM', branches: [[name: '*/master']],userRemoteConfigs: [[url: scripts_repo]], credentialsId: git_cred_id])
+                        sh 'ls -l'
+                    }
                 }
             }
         }
