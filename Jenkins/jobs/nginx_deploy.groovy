@@ -10,6 +10,8 @@ pipeline {
     agent any
     parameters {
         booleanParam(name: 'show_debug_info', defaultValue: false)
+        booleanParam(name: 'deploy_nginx', defaultValue: false)
+        //text(name: 'input_text_field', description: 'input text field')
     }
 
     stages {
@@ -34,6 +36,19 @@ pipeline {
                     dir("scripts_repo_dir_2") {
                         checkout([$class: 'GitSCM', branches: [[name: '*/master']],userRemoteConfigs: [[url: scripts_repo, credentialsId: git_cred_id]]])
                         sh 'ls -l'
+                    }
+                }
+            }
+        }
+
+
+        stage('Copy files and restart Nginx') {
+            when { expression { params.deploy_nginx } }
+            steps {
+                script {
+                    sshagent(credentials : [nginx_cred_id]) {
+                        sh " scp -o StrictHostKeyChecking=no ./scripts_repo_dir_1/nginx/yunov/config_static/nginx.conf ${nginx_user}@${nginx_ip}:/etc/nginx/nginx.conf"
+                        sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} sudo systemctl reload nginx"
                     }
                 }
             }
