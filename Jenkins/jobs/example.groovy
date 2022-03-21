@@ -1,7 +1,8 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent { label "all" }
+    //agent { label "all" }
+    agent any
     parameters {
         string(name: 'send_file_path', defaultValue: '/sowa/profile_storage/custom/curcontrol_web/temp_file', description: '')
         text(name: 'send_file_contents', description: 'Содержимое файла')
