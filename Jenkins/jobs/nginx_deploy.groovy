@@ -32,7 +32,7 @@ pipeline {
                     // работаем с git при помощи плагина jenkins
                     sh 'mkdir scripts_repo_dir_2'
                     dir("scripts_repo_dir_2") {
-                        checkout([$class: 'GitSCM', branches: [[name: '*/master']],userRemoteConfigs: [[url: scripts_repo]], credentialsId: git_cred_id])
+                        checkout([$class: 'GitSCM', branches: [[name: '*/master']],userRemoteConfigs: [[url: scripts_repo, credentialsId: git_cred_id]]])
                         sh 'ls -l'
                     }
                 }
