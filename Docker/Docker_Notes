@@ -43,6 +43,9 @@ docker container ls -a | awk '{ print $1 }' | xargs docker container rm
 #Build
 docker build .
 
+#Build with name
+docker build -t <image_name> .
+
 #Run container from builded image
 docker run 87eda445703d
 
