@@ -1,2 +1,3 @@
 jinja2-test/processed_templates/*
 Jenkins/jenkins_files/*
+.idea
