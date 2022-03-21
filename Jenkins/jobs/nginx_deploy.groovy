@@ -21,8 +21,8 @@ pipeline {
                     sh 'mkdir scripts_repo_dir_1'
                     dir("scripts_repo_dir_1") {
                         sh "git init"
-                        sshagent(credentials : [git_cred_id]) {
-                            sh "git fetch $scripts_repo master:local_master"
+                        withCredentials([sshUserPrivateKey(credentialsId: git_cred_id, keyFileVariable: 'SSH_KEY')]) {
+                            sh "GIT_SSH_COMMAND='ssh -i ${SSH_KEY}' git fetch $scripts_repo master:local_master"
                         }
                         sh "git checkout local_master"
                         sh "ls"
