@@ -22,8 +22,9 @@ pipeline {
                     dir("scripts_repo_dir_1") {
                         sh "git init"
                         sshagent(credentials : [git_cred_id]) {
-                            sh "git fetch $scripts_repo master:master"
+                            sh "git fetch $scripts_repo master:local_master"
                         }
+                        sh "git checkout local_master"
                         sh "ls"
                     }
                     
