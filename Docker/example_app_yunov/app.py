@@ -3,6 +3,7 @@ from flask import Flask, render_template, abort
 
 
 app = Flask(__name__)
+app.config
 
 def read_parameters(params_filename):
     with open(params_filename, "r") as input_parameters_file:
@@ -54,4 +55,4 @@ def page_not_found(e):
 
 if __name__ == '__main__':
     my_params = read_parameters('parameters.yml')
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
