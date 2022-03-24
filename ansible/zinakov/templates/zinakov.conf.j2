@@ -1,0 +1,13 @@
+server {
+        listen {{ nginx_vars.service_listen_port }};
+        server_name {{ nginx_vars.service_server_name }};
+
+        access_log /var/log/nginx/awesome_access.log;
+        error_log  /var/log/nginx/awesome_error.log;
+
+        location / {
+            alias {{ nginx_vars.service_alias }};
+            #autoindex on;
+            index {{ nginx_vars.service_index }};
+                  }
+        }
