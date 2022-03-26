@@ -62,7 +62,7 @@ pipeline {
                 script {
                     echo 'Show Nginx configs:'
                     sshagent(credentials : [nginx_cred_id]) {
-                        sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} netstat -tulnp"
+                        //sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} netstat -tulnp"
                         sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} ip a"
                         sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} cat /etc/nginx/nginx.conf"
                         sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} ls /etc/nginx/conf.d"
