@@ -47,8 +47,9 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials : [nginx_cred_id]) {
-                        sh " scp -o StrictHostKeyChecking=no ./scripts_repo_dir_1/nginx/yunov/config_static/nginx.conf ${nginx_user}@${nginx_ip}:/etc/nginx/nginx.conf"
-                        sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} sudo systemctl reload nginx"
+                        sh "scp -o StrictHostKeyChecking=no ./scripts_repo_dir_1/nginx/yunov/config_static/nginx.conf ${nginx_user}@${nginx_ip}:/tmp/nginx.conf"
+                        sh "ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} sudo mv /tmp/nginx.conf /etc/nginx/nginx.conf"
+                        sh "ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} sudo systemctl reload nginx"
                     }
                 }
             }
