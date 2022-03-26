@@ -2,7 +2,7 @@
 
 def git_cred_id = 'yunovv_ssh'
 def nginx_cred_id = 'nginx_cred_001'
-def nginx_ip = '10.10.0.'
+def nginx_ip = '10.10.0.213'
 def nginx_user = 'admin'
 def scripts_repo = 'git@github.com:yunovv/super-repo.git'
 
