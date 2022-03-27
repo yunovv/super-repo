@@ -2,7 +2,7 @@
 
 def git_cred_id = 'yunovv_ssh'
 def nginx_cred_id = 'nginx_cred_001'
-def nginx_ip = '10.10.0.'
+def nginx_ip = '10.10.0.213'
 def nginx_user = 'admin'
 def scripts_repo = 'git@github.com:yunovv/super-repo.git'
 
@@ -47,8 +47,9 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials : [nginx_cred_id]) {
-                        sh " scp -o StrictHostKeyChecking=no ./scripts_repo_dir_1/nginx/yunov/config_static/nginx.conf ${nginx_user}@${nginx_ip}:/etc/nginx/nginx.conf"
-                        sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} sudo systemctl reload nginx"
+                        sh "scp -o StrictHostKeyChecking=no ./scripts_repo_dir_1/nginx/yunov/config_static/nginx.conf ${nginx_user}@${nginx_ip}:/tmp/nginx.conf"
+                        sh "ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} sudo mv /tmp/nginx.conf /etc/nginx/nginx.conf"
+                        sh "ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} sudo systemctl reload nginx"
                     }
                 }
             }
@@ -61,7 +62,7 @@ pipeline {
                 script {
                     echo 'Show Nginx configs:'
                     sshagent(credentials : [nginx_cred_id]) {
-                        sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} netstat -tulnp"
+                        //sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} netstat -tulnp"
                         sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} ip a"
                         sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} cat /etc/nginx/nginx.conf"
                         sh " ssh -o StrictHostKeyChecking=no ${nginx_user}@${nginx_ip} ls /etc/nginx/conf.d"
