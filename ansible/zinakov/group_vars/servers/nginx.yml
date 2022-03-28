@@ -1,0 +1,5 @@
+nginx_vars:
+  service_listen_port: 8080
+  service_server_name: awesome-nginx.local
+  service_alias: /etc/nginx/static_out/
+  service_index: page.html
