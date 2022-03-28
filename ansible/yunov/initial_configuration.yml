@@ -12,7 +12,7 @@
         name: vim
         state: latest
     
-    - name: 
+    - name: Install nginx
       zypper: Install nginx
         name: nginx
         state: latest
