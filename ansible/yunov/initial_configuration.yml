@@ -13,7 +13,7 @@
         state: latest
     
     - name: Install nginx
-      zypper: Install nginx
+      zypper:
         name: nginx
         state: latest
     
