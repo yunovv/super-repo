@@ -3,6 +3,7 @@ from flask import Flask, render_template, abort
 
 
 app = Flask(__name__)
+app.config
 
 def read_parameters(params_filename):
     with open(params_filename, "r") as input_parameters_file:
