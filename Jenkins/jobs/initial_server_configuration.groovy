@@ -25,10 +25,22 @@ pipeline {
         }
 
 
-        stage('Example command') {
+        stage('Initial configuration') {
             steps {
                 script {
-                    sh "echo ${my_string}"
+                    sh "mkdir ansible_workplace"
+                    sh "cp -r my_scripts/ansible/yunov/* ./ansible_workplace"
+                }
+            }
+        }
+
+
+        stage('Initial configuration') {
+            steps {
+                script {
+                    dir("ansible_workplace") {
+                        sh "ansible-playbook -i hosts initial_configuration.yml"
+                    }
                 }
             }
         }
