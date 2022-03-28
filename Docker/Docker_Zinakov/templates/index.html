@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Page</title>
+  </head>
+  <body>
+    <h1>Animals</h1>
+{% for animal in animals.values() %}
+    <b>Name: {{ animal['name'] }}</b>
+    <p> - type: {{ animal['type'] }}</p>
+    <p> - colour: {{ animal['colour'] }}</p>
+    <p> - eyes: {{ animal['eyes'] }}</p>
+    <p> - sound: {{ animal['sound'] }}</p>
+{% endfor %}
+  </body>
+</html>
