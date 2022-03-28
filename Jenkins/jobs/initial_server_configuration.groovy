@@ -39,7 +39,9 @@ pipeline {
             steps {
                 script {
                     dir("ansible_workplace") {
-                        sh "ansible-playbook -i hosts initial_configuration.yml"
+                        withCredentials([sshUserPrivateKey(credentialsId: 'nginx_cred_001', keyFileVariable: 'MYSSH')]) {
+                            sh "ansible-playbook -i hosts initial_configuration.yml --private-key $MYSSH"
+                        }
                     }
                 }
             }
