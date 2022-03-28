@@ -25,7 +25,7 @@ pipeline {
         }
 
 
-        stage('Initial configuration') {
+        stage('Prepare Ansible workplace') {
             steps {
                 script {
                     sh "mkdir ansible_workplace"
