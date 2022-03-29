@@ -25,10 +25,24 @@ pipeline {
         }
 
 
-        stage('Example command') {
+        stage('Prepare Ansible workplace') {
             steps {
                 script {
-                    sh "echo ${my_string}"
+                    sh "mkdir ansible_workplace"
+                    sh "cp -r my_scripts/ansible/yunov/* ./ansible_workplace"
+                }
+            }
+        }
+
+
+        stage('Initial configuration') {
+            steps {
+                script {
+                    dir("ansible_workplace") {
+                        withCredentials([sshUserPrivateKey(credentialsId: 'nginx_cred_001', keyFileVariable: 'MYSSH')]) {
+                            sh "ansible-playbook -i hosts initial_configuration.yml --private-key $MYSSH"
+                        }
+                    }
                 }
             }
         }

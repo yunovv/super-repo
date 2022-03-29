@@ -1,0 +1,23 @@
+---
+
+- name: Nginx example Playbook
+  hosts: all
+  tasks:
+    - name: Display message
+      debug:
+        msg: "Starting initial configuration"
+
+    - name: Install vim
+      zypper:
+        name: vim
+        state: latest
+    
+    - name: Install nginx
+      zypper:
+        name: nginx
+        state: latest
+    
+    - name: 
+      service: 
+        name: nginx
+        state: reloaded
