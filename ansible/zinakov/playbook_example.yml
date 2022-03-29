@@ -1,0 +1,50 @@
+---
+
+- name: ansible_playbook
+  hosts: all
+  become: yes
+  tasks:
+    - name: Start_message
+      debug:
+        msg: "Test_playbook"
+
+    - name: create folder
+      file:
+        path: /etc/nginx/static_out/
+        state: directory
+
+
+
+    - name: update nginx config
+      ansible.builtin.copy:
+
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+
+    - name: copy html page
+      ansible.builtin.copy:
+
+        src: page.html
+        dest: /etc/nginx/static_out/
+
+    - name: apply template zinakov.conf
+      template:
+        src: zinakov.conf.j2
+        dest: /etc/nginx/conf.d/zinakov.conf
+    - name: check configs
+      shell:
+        cmd: nginx -t
+
+      #notify:
+      #  - restart nginx
+
+    - name: restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+
+    - name: check nginx port
+      uri:
+        url: "http://localhost:{{ nginx_vars.service_listen_port }}"
+        status_code: [200, 202]
+        return_content: true
