@@ -7,17 +7,22 @@
       debug:
         msg: "Starting initial configuration"
 
-    - name: Install vim
-      zypper:
-        name: vim
-        state: latest
+    - name: check service 8080
+      shell: curl http://localhost:8080/
+      register: curl1
     
-    - name: Install nginx
-      zypper:
-        name: nginx
-        state: latest
+    - debug:
+      var: curl1.stdout_lines
+
+    - name: check service 80
+      shell: curl http://localhost:80/
+      register: curl2
     
-    - name: 
+    - debug:
+      var: curl2.stdout_lines
+    
+    - name: Reload Nginx
       service: 
         name: nginx
         state: reloaded
+      become: yes
