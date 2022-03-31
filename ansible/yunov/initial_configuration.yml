@@ -11,15 +11,17 @@
       shell: curl http://localhost:8080/
       register: curl1
     
-    - debug:
-      var: curl1.stdout_lines
+    - name: show curl results
+      debug:
+        var: curl1.stdout_lines
 
     - name: check service 80
       shell: curl http://localhost:80/
       register: curl2
     
-    - debug:
-      var: curl2.stdout_lines
+    - name: show curl results
+      debug:
+        var: curl2.stdout_lines
     
     - name: Reload Nginx
       service: 
