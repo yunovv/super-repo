@@ -13,7 +13,7 @@
     
     - name: show curl results
       debug:
-      var: curl1.stdout_lines
+        var: curl1.stdout_lines
 
     - name: check service 80
       shell: curl http://localhost:80/
@@ -21,7 +21,7 @@
     
     - name: show curl results
       debug:
-      var: curl2.stdout_lines
+        var: curl2.stdout_lines
     
     - name: Reload Nginx
       service: 
