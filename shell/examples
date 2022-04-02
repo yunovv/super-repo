@@ -1,0 +1,40 @@
+echo 'Some words' >> file
+
+awk '{ print $1 }'
+
+ls -l | awk '{ print $9 }'
+
+xargs
+
+ls -l | awk '{ print $9 }' | xargs rm
+
+grep -B 1 -A 1
+
+tail -n 10
+
+head -n 10
+
+for x in $(ls); do tail -n 5 $x; done
+
+touch file{1..10}
+
+rm file[0-9][0-9]
+
+for i in {0..100}; do echo 'some string' >> file; done
+
+sed -i 's/string/words/g' file
+
+watch -n 1 'tail -n 10 file'
+
+find / -name file -type f
+
+2>/dev/null
+
+tee
+
+/dev/urandom
+
+/dev/null
+
+dd
+
