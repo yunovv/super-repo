@@ -46,10 +46,10 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials : [server_cred_id]) {
-                        sh " ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} netstat -tulnp"
-                        sh " ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} ip a"
-                        sh " ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} cat /etc/nginx/nginx.conf"
-                        sh " ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} ls /etc/nginx/conf.d"
+                        sh "ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} netstat -tulnp"
+                        sh "ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} ip a"
+                        sh "ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} cat /etc/nginx/nginx.conf"
+                        sh "ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} ls /etc/nginx/conf.d"
                     }
                 }
             }
