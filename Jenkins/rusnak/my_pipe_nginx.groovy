@@ -17,8 +17,8 @@ pipeline {
 	
 	stages {
 		stage('Change file hosts.') {
+			when { expression { params.deploy_nginx } }
             steps {
-				when { expression { params.deploy_nginx } }
                 script {
 					dir("ansible/rusnak") {
 						sh "echo [nginx] > hosts"
