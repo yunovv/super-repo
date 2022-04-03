@@ -22,9 +22,9 @@ pipeline {
 					sh "pwd"
 					sh "ls -l"
 					dir("ansible/rusnak") {
-						cat hosts
-						echo ${server_ip} > hosts
-						cat hosts
+						sh "cat hosts"
+						sh "echo ${server_ip} > hosts"
+						sh "cat hosts"
 					}
                 }
             }
