@@ -32,6 +32,8 @@ pipeline {
 		stage('Prepare Ansible env') {
             steps {
                 script {
+					sh "pwd"
+					sh "ls -l"
                     sh "mkdir ansible"
                     sh "cp -r my_scripts/ansible/rusnak/* ./ansible"
                 }
