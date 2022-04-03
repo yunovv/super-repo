@@ -45,6 +45,7 @@ pipeline {
 						cat hosts
 						echo ${server_ip} > hosts
 						cat hosts
+					}
                 }
             }
         }
