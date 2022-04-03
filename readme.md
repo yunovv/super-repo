@@ -86,3 +86,6 @@ git show-ref --abbrev=7 --tags
 
 
 git push --tags git@github.com:yunovv/react-simple.git master:yunovv
+
+
+git log --graph --pretty=oneline --abbrev-commit
