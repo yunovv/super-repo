@@ -19,7 +19,9 @@ pipeline {
 		stage('Change file hosts') {
             steps {
                 script {
-					dir("ansible") {
+					sh "pwd"
+					sh "ls -l"
+					dir("ansible/rusnak") {
 						cat hosts
 						echo ${server_ip} > hosts
 						cat hosts
