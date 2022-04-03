@@ -28,11 +28,31 @@ pipeline {
                 }
             }
         }	
+		
+		stage('Prepare Ansible env') {
+            steps {
+                script {
+                    sh "mkdir ansible"
+                    sh "cp -r my_scripts/ansible/rusnak/* ./ansible"
+                }
+            }
+        }
+		
+		stage('Change file hosts') {
+            steps {
+                script {
+					dir("ansible") {
+						cat hosts
+						echo ${server_ip} > hosts
+						cat hosts
+                }
+            }
+        }
+	
+	
+	
+	
 	}
-	
-	
-	
-
 
     post {
         cleanup {
