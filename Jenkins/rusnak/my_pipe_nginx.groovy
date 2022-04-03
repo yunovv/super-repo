@@ -26,17 +26,17 @@ pipeline {
             }
         }
 		
-		stage('') {
+		stage('Run ansible configuration') {
 			steps {
 				script {
 					dir("ansible/rusnak") {
 						withCredentials([sshUserPrivateKey(credentialsId: server_cred_id, keyFileVariable: 'MY_SSH')]) {
                             sh 'ansible-playbook -i hosts my_playbook.yml --private-key $MY_SSH --ssh-common-args="-o StrictHostKeyChecking=No"'
 						}
-				
+					}
 				}
 			}
-		{
+		}
 	
 	
 	
