@@ -36,7 +36,7 @@ tee
 
 /dev/null
 
-dd
+dd if=/home/yunovv/Documents/rhel.iso of=/dev/sdc
 
 wc -l
 wc -c

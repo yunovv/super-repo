@@ -1,0 +1,59 @@
+---
+
+- name: Nginx example Playbook
+  hosts: all
+  tasks:
+
+    - name: Display message
+      debug:
+        msg: "Starting initial configuration"
+
+    - name: Copy nginx.conf
+      copy:
+        src: ../../nginx/yunov/react_app/nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: nginx
+        group: root
+        mode: '0644'
+      become: yes
+
+    - name: Copy service.conf
+      copy:
+        src: ../../nginx/yunov/react_app/my_service.conf
+        dest: /etc/nginx/conf.d/service.conf
+        owner: nginx
+        group: root
+        mode: '0644'
+      become: yes
+
+    - name: wipe static directory
+      file:
+        state: absent
+        path: /etc/nginx/static_out/
+      become: yes
+
+    - name: recreate static directory
+      file:
+        path: /etc/nginx/static_out/
+        state: directory
+      become: yes
+
+    - name: Copy static to Nginx
+      synchronize:
+        src: ../../react_sources/build/
+        dest: /etc/nginx/static_out/
+      become: yes
+
+    - name: Reload Nginx
+      service: 
+        name: nginx
+        state: reloaded
+      become: yes
+
+    - name: check service
+      uri:
+        url: "http://{{ inventory_hostname }}/"
+        status_code: [200, 201, 202]
+
+    
+    
