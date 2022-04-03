@@ -16,7 +16,7 @@ pipeline {
     }
 	
 	stages {
-		stage('Change file hosts') {
+		stage('Change file hosts.') {
             steps {
 				when { expression { params.deploy_nginx } }
                 script {
@@ -28,7 +28,7 @@ pipeline {
             }
         }
 		
-		stage('Run ansible configuration') {
+		stage('Run ansible configuration.') {
 			when { expression { params.deploy_nginx } }
 			steps {
 				script {
@@ -41,7 +41,7 @@ pipeline {
 			}
 		}
 		
-		stage('Copy files and restart Nginx') {
+		stage('Check files and Nginx configuration.') {
             when { expression { params.show_debug_info } }
             steps {
                 script {
@@ -54,9 +54,6 @@ pipeline {
                 }
             }
         }
-	
-	
-	
 	
 	}
 
