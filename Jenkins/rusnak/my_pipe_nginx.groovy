@@ -15,31 +15,6 @@ pipeline {
         //text(name: 'input_text_field', description: 'input text field')
     }
 	
-    stages {
-        stage('Checkout Scripts Repo') {
-            steps {
-                script {
-                    // работаем с git при помощи плагина jenkins
-                    sh 'mkdir super_repo'
-                    dir("super_repo") {
-                        checkout([$class: 'GitSCM', branches: [[name: '*/rusnak_jenkins']],userRemoteConfigs: [[url: git_repo, credentialsId: git_cred_id]]])
-						sh 'ls -l'
-                    }
-                }
-            }
-        }	
-		
-		stage('Prepare Ansible env') {
-            steps {
-                script {
-					sh "pwd"
-					sh "ls -l"
-                    sh "mkdir ansible"
-                    sh "cp -r my_scripts/ansible/rusnak/* ./ansible"
-                }
-            }
-        }
-		
 		stage('Change file hosts') {
             steps {
                 script {
