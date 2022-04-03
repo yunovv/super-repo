@@ -20,7 +20,8 @@ pipeline {
             steps {
                 script {
 					dir("ansible/rusnak") {
-						sh "echo ${server_ip} > hosts"
+						sh "echo [nginx] > hosts"
+						sh "echo ${server_ip} >> hosts"
 					}
                 }
             }
