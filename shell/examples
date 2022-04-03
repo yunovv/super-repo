@@ -38,3 +38,5 @@ tee
 
 dd
 
+wc -l
+wc -c
