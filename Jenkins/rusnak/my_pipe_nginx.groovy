@@ -19,14 +19,24 @@ pipeline {
 		stage('Change file hosts') {
             steps {
                 script {
-					sh "pwd"
-					sh "ls -l"
 					dir("ansible/rusnak") {
 						sh "echo ${server_ip} > hosts"
 					}
                 }
             }
         }
+		
+		stage('') {
+			steps {
+				script {
+					dir("ansible/rusnak") {
+						withCredentials([sshUserPrivateKey(credentialsId: server_cred_id, keyFileVariable: 'MY_SSH')]) {
+                            sh 'ansible-playbook -i hosts my_playbook.yml --private-key $MY_SSH --ssh-common-args="-o StrictHostKeyChecking=No"'
+						}
+				
+				}
+			}
+		{
 	
 	
 	
