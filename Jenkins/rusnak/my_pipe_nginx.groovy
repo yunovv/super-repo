@@ -15,6 +15,7 @@ pipeline {
         //text(name: 'input_text_field', description: 'input text field')
     }
 	
+	stages {
 		stage('Change file hosts') {
             steps {
                 script {
