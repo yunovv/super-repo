@@ -6,12 +6,11 @@ def server_cred_id = 'servers_auth'
 def server_user = 'admin'
 def git_repo = 'git@github.com:yunovv/super-repo.git'
 
-
 pipeline {
     agent any
     parameters {
-        booleanParam(name: 'show_debug_info', defaultValue: false)
-        booleanParam(name: 'deploy_nginx', defaultValue: false)
+        booleanParam(name: 'show_server_info', defaultValue: false, description: 'Show Server Information')
+        booleanParam(name: 'deploy_nginx', defaultValue: false, description: 'Deploy Nginx to the Server')
         text(name: 'server_ip', description: 'Input Server IP-address.' , defaultValue: '192.168.2.21')
     }
 	
@@ -42,7 +41,7 @@ pipeline {
 		}
 		
 		stage('Check files and Nginx configuration.') {
-            when { expression { params.show_debug_info } }
+            when { expression { params.show_server_info } }
             steps {
                 script {
                     sshagent(credentials : [server_cred_id]) {
@@ -54,7 +53,6 @@ pipeline {
                 }
             }
         }
-	
 	}
 
     post {
