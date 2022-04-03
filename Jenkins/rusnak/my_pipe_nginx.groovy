@@ -10,14 +10,15 @@ def git_repo = 'git@github.com:yunovv/super-repo.git'
 pipeline {
     agent any
     parameters {
-        //booleanParam(name: 'show_debug_info', defaultValue: false)
-        //booleanParam(name: 'deploy_nginx', defaultValue: false)
+        booleanParam(name: 'show_debug_info', defaultValue: false)
+        booleanParam(name: 'deploy_nginx', defaultValue: false)
         text(name: 'server_ip', description: 'Input Server IP-address.' , defaultValue: '192.168.2.21')
     }
 	
 	stages {
 		stage('Change file hosts') {
             steps {
+				when { expression { params.deploy_nginx } }
                 script {
 					dir("ansible/rusnak") {
 						sh "echo [nginx] > hosts"
@@ -28,18 +29,31 @@ pipeline {
         }
 		
 		stage('Run ansible configuration') {
+			when { expression { params.deploy_nginx } }
 			steps {
 				script {
 					dir("ansible/rusnak") {
-						sh "ls -l"
-						sh "cat hosts"
-						withCredentials([sshUserPrivateKey(credentialsId: server_cred_id, keyFileVariable: 'MY_SSH')]) {
-                            sh 'ansible-playbook -i hosts my_playbook.yml --private-key $MY_SSH --ssh-common-args="-o StrictHostKeyChecking=No"'
+						withCredentials([sshUserPrivateKey(credentialsId: server_cred_id, keyFileVariable: 'SSH_KEY')]) {
+                            sh 'ansible-playbook -i hosts my_playbook.yml --private-key $SSH_KEY --ssh-common-args="-o StrictHostKeyChecking=No"'
 						}
 					}
 				}
 			}
 		}
+		
+		stage('Copy files and restart Nginx') {
+            when { expression { params.show_debug_info } }
+            steps {
+                script {
+                    sshagent(credentials : [server_cred_id]) {
+                        sh " ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} netstat -tulnp"
+                        sh " ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} ip a"
+                        sh " ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} cat /etc/nginx/nginx.conf"
+                        sh " ssh -o StrictHostKeyChecking=no ${server_user}@${server_ip} ls /etc/nginx/conf.d"
+                    }
+                }
+            }
+        }
 	
 	
 	
