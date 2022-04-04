@@ -40,7 +40,7 @@ pipeline {
                 script {
                     dir("ansible_workplace") {
                         withCredentials([sshUserPrivateKey(credentialsId: nginx_cred_id, keyFileVariable: 'MYSSH')]) {
-                            sh 'ansible-playbook -i hosts initial_configuration.yml --private-key $MYSSH --ssh-common-args="-o StrictHostKeyChecking=No"'
+                            sh 'ansible-playbook -i hosts playbook_example.yml --private-key $MYSSH --ssh-common-args="-o StrictHostKeyChecking=No"'
                         }
                     }
                 }
