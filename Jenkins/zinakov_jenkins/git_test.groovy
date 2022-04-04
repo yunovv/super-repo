@@ -20,7 +20,7 @@ pipeline{
                 
                 sh "echo $choices > example.txt"  
                 sh "cat example.txt"
-                
+                //sh "apt-get install netstat"
                 }
             }
                 
