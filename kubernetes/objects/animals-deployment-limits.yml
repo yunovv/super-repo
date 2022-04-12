@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: animals-deployment
+  namespace: yunovv-lab
+  labels:
+    app: animals-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: animals-app
+  template:
+    metadata:
+      labels:
+        app: animals-app
+    spec:
+      containers:
+      - name: flask-app
+        image: yunovv/yunovv-animals-rest@sha256:c509101d3008b848d9d82ec80a495c8d75decee8d88a9c0744375c94a687180c
+        ports:
+        - containerPort: 5000
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "10m"
+          requests:
+            memory: "128Mi"
+            cpu: "5m"
+      imagePullSecrets:
+      - name: regcred
