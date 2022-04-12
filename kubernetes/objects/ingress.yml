@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: my-ingress
+  namespace: yunovv-lab
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: animals.yunovv.local
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: animals-service
+            port:
+              number: 8080

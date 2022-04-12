@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: animals-service
+  namespace: yunovv-lab
+spec:
+  selector:
+    app: animals-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 5000
