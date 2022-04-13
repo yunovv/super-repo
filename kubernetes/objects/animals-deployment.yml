@@ -27,5 +27,20 @@ spec:
           requests:
             memory: "128Mi"
             cpu: "5m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          failureThreshold: 2
+          periodSeconds: 5
+          timeoutSeconds: 15
+        startupProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 10
+          initialDelaySeconds: 40
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
