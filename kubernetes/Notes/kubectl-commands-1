@@ -1,0 +1,10 @@
+
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+kubectl get nodes
+
+kubectl config view
+
+kubectl get pods --all-namespaces
+
+

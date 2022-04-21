@@ -41,6 +41,6 @@ spec:
           periodSeconds: 5
           successThreshold: 1
           failureThreshold: 10
-          initialDelaySeconds: 40
+          initialDelaySeconds: 15
       imagePullSecrets:
         - name: regcred
