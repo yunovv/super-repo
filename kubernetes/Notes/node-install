@@ -1,0 +1,35 @@
+
+# в примере команды для Debian/Ubuntu
+
+# static address
+
+# ssh server enabled
+
+# timezone
+
+# ssh-copy-id с рабочей станции
+
+# install vim podman
+
+
+# Пререквизиты
+swapoff -a
+
+apt-get install podman
+
+# Добавляем репозиторий в список
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# Добавляем ключ в доверенные
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+# Чекаем все репозитории включая вновь добавленный
+apt-get update
+
+# Ставим 
+apt-get install kubeadm
+
+# Инициализируем воркер
+# Берём вывод команды token create с мастера и вставляем kube join ...

@@ -1,0 +1,54 @@
+
+# в примере команды для Debian/Ubuntu
+
+# static address
+
+# ssh server enabled
+
+# timezone
+
+# ssh-copy-id с рабочей станции
+
+# install vim podman
+
+
+# Пререквизиты
+swapoff -a
+
+apt-get install podman
+
+# Добавляем репозиторий в список
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# Добавляем ключ в доверенные
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+# Чекаем все репозитории включая вновь добавленный
+apt-get update
+
+# Ставим 
+apt-get install kubeadm
+
+# Инициализируем мастер
+kubeadm init --pod-network-cidr=20.0.0.0/24
+
+
+
+
+# Ставим kubectl - клиент
+
+# Добавляем конфиг чтобы подключаться к кластеру локально с помощью kubectl
+mkdir -p $HOME/.kube
+
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
+chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+
+
+# При необходимости добавления ноды выпускаем новый токен
+kubeadm token list
+kubeadm token create
